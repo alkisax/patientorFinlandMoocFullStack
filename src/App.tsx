@@ -8,9 +8,19 @@ import { Patient } from "./types";
 
 import patientService from "./services/patients";
 import PatientListPage from "./components/PatientListPage";
+import PatientDetailPage from "./components/PatientDetailPage";
 
 const App = () => {
   const [patients, setPatients] = useState<Patient[]>([]);
+  // const [patientInfo, setPatientInfo] = useState<Patient>({
+  //     id: '',
+  //     name: '',
+  //     occupation: '',
+  //     gender: Gender.Other,
+  //     ssn: '',
+  //     dateOfBirth: '',
+  //     entries: []
+  // });
 
   useEffect(() => {
     void axios.get<void>(`${apiBaseUrl}/ping`);
@@ -33,8 +43,20 @@ const App = () => {
             Home
           </Button>
           <Divider hidden />
+
           <Routes>
-            <Route path="/" element={<PatientListPage patients={patients} setPatients={setPatients} />} />
+            <Route path="/" 
+              element={<PatientListPage 
+                patients={patients} 
+                setPatients={setPatients}
+              />} 
+            />
+
+            <Route 
+              path="/patients/:id"
+              element={<PatientDetailPage
+              />} 
+            />
           </Routes>
         </Container>
       </Router>
